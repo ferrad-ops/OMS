@@ -1,0 +1,13 @@
+Fsharp.Core
+FsToolkit.ErrorHandling
+FsConfig
+FluentValidation
+FSharp.Data.GraphQL.Server
+FSharp.Data.GraphQL.Server.Middlewares
+Giraffe
+Giraffe.TokenRouter
+Giraffe.SerilogExtensions
+System.Reactive.Interfaces
+System.Reactive.Linq
+GreenDonut
+Jet.JsonNet.Converters

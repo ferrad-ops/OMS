@@ -1,0 +1,17 @@
+framework: auto-detect
+storage: none
+source https://api.nuget.org/v3/index.json
+nuget FluentValidation
+nuget FsConfig
+nuget Fsharp.Core
+nuget FSharp.Data.GraphQL.Server 0.0.18-beta beta
+nuget FSharp.Data.GraphQL.Server.Middlewares 0.0.18-beta beta
+nuget FsToolkit.ErrorHandling
+nuget Giraffe
+nuget Giraffe.SerilogExtensions
+nuget Giraffe.TokenRouter
+nuget GreenDonut
+nuget Insight.Database
+nuget Jet.JsonNet.Converters
+nuget System.Reactive.Interfaces 3.0.0
+nuget System.Reactive.Linq
