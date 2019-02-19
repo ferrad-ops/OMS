@@ -5,12 +5,11 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Controllers/ValuesController.fs" />
-    <Compile Include="Startup.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="Common\Helpers.fs" />
+    <Compile Include="WebServer\Router.fs" />
+    <Compile Include="WebServer\WebServer.fs" />
     <None Include="paket.references" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>

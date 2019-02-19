@@ -10,6 +10,7 @@ nuget FsToolkit.ErrorHandling
 nuget Giraffe
 nuget Giraffe.SerilogExtensions
 nuget Giraffe.TokenRouter
+nuget Saturn
 nuget GreenDonut
 nuget Insight.Database
 nuget Jet.JsonNet.Converters
