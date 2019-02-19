@@ -4,19 +4,22 @@ module OMS.API.Router
 open Giraffe
 open Saturn
 
-let browserRouter =
+let GQLServer = Schema.executor |> createGQLServer
+
+let apiRouter =
     router {
         not_found_handler (text "Not Found")
         pipe_through (pipeline {
-                          plug putSecureBrowserHeaders
-                          plug fetchSession
-                          set_header "x-pipeline-type" "Browser"
+                          plug acceptJson
+                          set_header "x-pipeline-type" "Api"
                       })
-        get "" (text "Welcome to OMS API")
+        get "" GQLServer
+        post "" GQLServer
+        //option "" GQLServer
     }
 
 let appRouter =
     router {
-        forward "/" browserRouter
+        forward "/" apiRouter
     }
 

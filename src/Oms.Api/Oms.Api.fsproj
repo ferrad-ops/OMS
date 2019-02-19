@@ -6,12 +6,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Common\Helpers.fs" />
+    <Compile Include="Schema\Schema.Common.fs" />
+    <Compile Include="Schema\QueryProcessor.fs" />
+    <Compile Include="Schema\Schema.fs" />
+    <Compile Include="WebServer\GQLServer.fs" />
     <Compile Include="WebServer\Router.fs" />
     <Compile Include="WebServer\WebServer.fs" />
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Oms.Application\Oms.Application.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
