@@ -1,7 +1,7 @@
 module OMS.API.WebServer
 
-open Saturn
 open Giraffe
+open Saturn
 open Microsoft.AspNetCore.Cors.Infrastructure
 
 let endpointPipe =
@@ -26,6 +26,7 @@ let app =
         use_static "static"
         use_gzip
         use_cors "CORS_policy" corsConfig
+        use_iis
     }
 
 run app

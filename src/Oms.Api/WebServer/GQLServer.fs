@@ -10,7 +10,7 @@ open OMS.Application
 open Giraffe.HttpStatusCodeHandlers.Successful
 open Giraffe.HttpStatusCodeHandlers.RequestErrors
 
-let private handleGQLRequest (executor : Executor<RootType>) =
+let createGQLServer (executor : Executor<RootType>) =
     fun (next : HttpFunc) (ctx : HttpContext) ->
         task {
             let request = ctx.Request
@@ -38,6 +38,4 @@ let private handleGQLRequest (executor : Executor<RootType>) =
                     return! OK (json result) next ctx
         }
         
-let createGQLServer (executor : Executor<RootType>) : HttpHandler =
-    let graphQL = executor |> handleGQLRequest
-    graphQL
+let GQLServer : HttpHandler = Schema.executor |> createGQLServer
