@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Common\Helpers.fs" />
+    <Compile Include="Schema\Graphscriber.AspNetCor.fs" />
     <Compile Include="Schema\Schema.Common.fs" />
     <Compile Include="Schema\QueryProcessor.fs" />
     <Compile Include="Schema\Schema.fs" />

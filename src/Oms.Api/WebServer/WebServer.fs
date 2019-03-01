@@ -3,6 +3,9 @@ module OMS.API.WebServer
 open Giraffe
 open Saturn
 open Microsoft.AspNetCore.Cors.Infrastructure
+open Microsoft.Extensions.DependencyInjection
+open Graphscriber.AspNetCore
+open Microsoft.AspNetCore.Builder
 
 let endpointPipe =
     pipeline {
@@ -12,6 +15,17 @@ let endpointPipe =
 
 let corsConfig (builder : CorsPolicyBuilder) =
     builder.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader() |> ignore
+
+let configureServices (services : IServiceCollection) =
+    services.AddSingleton<INegotiationConfig>
+        (CustomNegotiationConfig(DefaultNegotiationConfig())) |> ignore
+    services.AddGQLServerSocketManager<RootType>() |> ignore
+    services
+
+let configureApp (builder : IApplicationBuilder) =
+    builder.UseGQLWebSockets
+        (Schema.executor,
+         (fun _ -> builder.ApplicationServices |> createRootType))
 
 let app =
     application {
@@ -27,6 +41,8 @@ let app =
         use_gzip
         use_cors "CORS_policy" corsConfig
         use_iis
+        service_config configureServices
+        app_config configureApp
     }
 
 run app

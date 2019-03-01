@@ -4,28 +4,23 @@ open OMS.Application
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 open FluentValidation.Results
-open Newtonsoft.Json.Converters.FSharp
+open System.Collections.Generic
+open Giraffe
 
 [<AutoOpen>]
 module JsonHelpers =
+    open Newtonsoft.Json.Serialization
 
     let tryGetJsonProperty (jobj : JObject) prop =
         match jobj.Property(prop) with
         | null -> None
         | p -> p.Value.ToString() |> Some
 
-    let jsonConverters =
-        [| OptionConverter() :> JsonConverter
-           TypeSafeEnumConverter() :> JsonConverter |]
-
-    let strictJsonSettings =
+    let jsonSerializerSettings (converters : JsonConverter seq) =
         JsonSerializerSettings()
-        |> tee
-               (fun s ->
-               s.Converters <- jsonConverters
-               s.MissingMemberHandling <- MissingMemberHandling.Error
-               s.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver
-                                         ())
+        |> tee (fun s ->
+               s.Converters <- converters |> List<JsonConverter>
+               s.ContractResolver <- CamelCasePropertyNamesContractResolver())
 
 [<AutoOpen>]
 module ValidationHelpers =
@@ -42,3 +37,10 @@ module ValidationHelpers =
             |> Seq.map (fun error -> (error.PropertyName, error.ErrorMessage))
             |> Map.ofSeq
         errors
+
+type CustomNegotiationConfig(baseConfig : INegotiationConfig) =
+    interface INegotiationConfig with
+        member __.UnacceptableHandler = baseConfig.UnacceptableHandler
+        member __.Rules =
+            dict [ "*/*", json
+                   "application/json", json ]

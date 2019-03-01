@@ -14,7 +14,6 @@ let apiRouter =
                       })
     }
 
-
 let browserRouter =
     router {
         not_found_handler (text "Not Found")
